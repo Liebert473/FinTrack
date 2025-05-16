@@ -1,0 +1,396 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+:root {
+    --primary: #0055FF;
+    --secondary: rgba(0, 85, 255, 0.1);
+    --gradient: linear-gradient(-45deg, var(--primary), rgba(0, 85, 255, 0.5));
+    --gray: rgba(0, 0, 0, 0.7);
+    --size1: 20px;
+    --size2: 16px;
+    --size3: 12px;
+    --space: 20px;
+    --box1: 50px;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 0;
+}
+
+/* Elements */
+
+a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn1 {
+    display: flex;
+    width: 150px;
+    min-height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--size2);
+    border-radius: 20px;
+    background-color: var(--primary);
+    color: white;
+    border: 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.screen {
+    margin: 0 auto;
+    max-width: 670px;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Login */
+
+.page {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    padding: var(--space);
+    padding-top: 25px;
+}
+
+.heading {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.top h1 {
+    font-size: var(--size1);
+    font-weight: 600;
+}
+
+.top .bi {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.body {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 var(--space);
+    height: 100%;
+    overflow: auto;
+}
+
+.body .btn1 {
+    margin-top: 40px;
+}
+
+.buttom {
+    display: flex;
+    padding: 20px var(--space);
+}
+
+.nav {
+    padding: 0;
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+}
+
+.nav li {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    list-style: none;
+    cursor: pointer;
+}
+
+.nav li .bi {
+    font-size: 25px;
+    color: var(--primary);
+}
+
+.nav li span {
+    font-size: var(--size3);
+    color: var(--primary);
+}
+
+#plus {
+    font-size: 35px;
+}
+
+.accounts {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.account {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    gap: 35px;
+    flex-direction: column;
+    padding: 15px 20px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--gradient);
+}
+
+.a-body {
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+}
+
+.a-body div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.a-body div div {
+    gap: 5px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.a-body div div span {
+    font-size: var(--size3);
+}
+
+.a-body div div p {
+    font-weight: 600;
+    font-size: var(--size2);
+}
+
+.a-body .bi {
+    font-size: 30px;
+}
+
+.a-top {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.a-top span {
+    margin-top: 10px;
+    font-size: var(--size3);
+}
+
+.a-top p {
+    font-weight: 600;
+    font-size: var(--size2);
+}
+
+.input-form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 0 var(--space);
+}
+
+.input-form .btn1 {
+    margin-top: 100px;
+}
+
+.input {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+.input label {
+    font-size: var(--size2);
+    color: var(--gray);
+}
+
+.input input {
+    outline-color: var(--primary);
+    padding: 15px;
+    background-color: var(--secondary);
+    width: 100%;
+    border: 0;
+    border-radius: 15px;
+    font-size: var(--size2);
+}
+
+.balance-input {
+    border-radius: 15px;
+    background-color: var(--secondary);
+    gap: 10px;
+    padding: 0 15px;
+    align-items: center;
+    display: flex;
+}
+
+.balance-input .bi {
+    font-size: 20px;
+    color: var(--primary);
+}
+
+#balance {
+    outline: 0;
+    padding: 15px 0;
+    background-color: unset;
+}
+
+.wrapper {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+}
+
+.motify-account {
+    width: 90%;
+    max-width: 600px;
+    border-radius: 20px;
+    padding: 20px 0;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.viewValue {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.viewValue p {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--secondary);
+    font-size: var(--size2);
+}
+
+.viewValue span {
+    width: 40%;
+    font-size: var(--size2);
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.close {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 10px;
+    font-size: 20px;
+}
+
+.close .bi {
+    cursor: pointer;
+}
+
+.option {
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--secondary);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.option .bi {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.option div p {
+    color: var(--gray);
+    font-size: var(--size2);
+    font-weight: 600;
+}
+
+.delete-account {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 70%;
+    max-width: 560px;
+    border-radius: 20px;
+    padding: 20px 0;
+    background-color: white;
+    z-index: 1001;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.content p {
+    font-size: var(--size2);
+    font-weight: 600;
+}
+
+.content span {
+    margin-top: 10px;
+    color: var(--gray);
+}
+
+.delete-account .btn1 {
+    margin-top: 20px;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
