@@ -45,7 +45,7 @@ function Upload() {
     }
 
     const handleSubmit = async (e) => {
-        fetch("${API_BASE}/api/transactions", {
+        fetch(`${API_BASE}/api/transactions`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

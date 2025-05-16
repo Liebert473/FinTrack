@@ -55,7 +55,7 @@ function Accounts() {
 
     const addAccount = () => {
         if (accountName != '') {
-            fetch("${API_BASE}/api/accounts", {
+            fetch(`${API_BASE}/api/accounts`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
