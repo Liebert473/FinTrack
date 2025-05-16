@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function Category() {
+    const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
 
     const [categories, setCategories] = useState([])
@@ -18,7 +19,7 @@ function Category() {
 
     const MotifyCategory = async () => {
         await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories/${selectedCategory}`,
+            `${API_BASE}/api/categories/${selectedCategory}`,
             {
                 method: "PUT",
                 headers: {
@@ -36,7 +37,7 @@ function Category() {
 
     const DeleteCategory = async () => {
         await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories/${selectedCategory}`,
+            `${API_BASE}/api/categories/${selectedCategory}`,
             {
                 method: "DELETE"
             }
@@ -55,7 +56,7 @@ function Category() {
 
     const AddCategory = async () => {
         await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories`,
+            `${API_BASE}/api/categories`,
             {
                 method: "POST",
                 headers: {
@@ -75,7 +76,7 @@ function Category() {
 
     const fetchCategories = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories?search=${search}`
+            `${API_BASE}/api/categories?search=${search}`
         ).then((x) => x.json());
 
         setCategories(rs)

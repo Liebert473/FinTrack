@@ -5,6 +5,7 @@ import { set } from "date-fns";
 
 function Transactions() {
     const navigate = useNavigate();
+    const API_BASE = 'https://fintrack-api-easr.onrender.com'
 
     //Filter
     const [openFilter, setOpenFilter] = useState(false)
@@ -31,7 +32,7 @@ function Transactions() {
 
     const fetchCategories = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories`
+            `${API_BASE}/api/categories`
         ).then((x) => x.json());
 
         setCategories(rs)
@@ -39,7 +40,7 @@ function Transactions() {
 
     const fetchAccounts = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/accounts`
+            `${API_BASE}/api/accounts`
         ).then((x) => x.json());
 
         setAccounts(rs)
@@ -70,7 +71,7 @@ function Transactions() {
         }
 
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/transactions/filter?${prams}`
+            `${API_BASE}/api/transactions/filter?${prams}`
         ).then((x) => x.json());
 
         setLoading(false)
@@ -83,7 +84,7 @@ function Transactions() {
     };
 
     const MotifyTransaction = async () => {
-        await fetch(`https://fintrack-api-kwxq.onrender.com/api/transactions/${selected.id}`,
+        await fetch(`${API_BASE}/api/transactions/${selected.id}`,
             {
                 method: "PUT",
                 headers: {
@@ -97,7 +98,7 @@ function Transactions() {
     }
 
     const DeleteTransaction = async () => {
-        await fetch(`https://fintrack-api-kwxq.onrender.com/api/transactions/${selected.id}`, {
+        await fetch(`${API_BASE}/api/transactions/${selected.id}`, {
             method: "DELETE",
         });
 

@@ -7,6 +7,7 @@ import {
 } from 'recharts';
 
 function Home() {
+  const API_BASE = 'https://fintrack-api-easr.onrender.com'
   const navigate = useNavigate();
 
   //Chart
@@ -35,7 +36,7 @@ function Home() {
 
   const fetchSpending = async () => {
     const rs = await fetch(
-      `https://fintrack-api-kwxq.onrender.com/api/totalSum/${new Date().toISOString().slice(0, 7)}?account=${viewAcc}&&type=expense`
+      `${API_BASE}/api/totalSum/${new Date().toISOString().slice(0, 7)}?account=${viewAcc}&&type=expense`
     ).then((x) => x.json());
 
     setSpending(rs)
@@ -53,7 +54,7 @@ function Home() {
 
   const fetchChartData = async () => {
     const rs = await fetch(
-      `https://fintrack-api-kwxq.onrender.com/api/statistic?view=daily&&type=expense`
+      `${API_BASE}/api/statistic?view=daily&&type=expense`
     ).then((x) => x.json());
 
     setChData(rs)
@@ -61,7 +62,7 @@ function Home() {
 
   const fetchCategories = async () => {
     const rs = await fetch(
-      `https://fintrack-api-kwxq.onrender.com/api/categories`
+      `${API_BASE}/api/categories`
     ).then((x) => x.json());
 
     setCategories(rs)
@@ -69,7 +70,7 @@ function Home() {
 
   const fetchAccounts = async () => {
     const rs = await fetch(
-      `https://fintrack-api-kwxq.onrender.com/api/accounts`
+      `${API_BASE}/api/accounts`
     ).then((x) => x.json());
 
     setAccounts(rs)
@@ -83,7 +84,7 @@ function Home() {
 
   const fetchTransactions = async () => {
     const rs = await fetch(
-      `https://fintrack-api-kwxq.onrender.com/api/transactions/filter?endDate=${endDate}&days=${days}`
+      `${API_BASE}/api/transactions/filter?endDate=${endDate}&days=${days}`
     ).then((x) => x.json());
 
     setLoading(false)
@@ -106,7 +107,7 @@ function Home() {
   };
 
   const MotifyTransaction = async () => {
-    await fetch(`https://fintrack-api-kwxq.onrender.com/api/transactions/${selected.id}`,
+    await fetch(`${API_BASE}/api/transactions/${selected.id}`,
       {
         method: "PUT",
         headers: {
@@ -120,7 +121,7 @@ function Home() {
   }
 
   const DeleteTransaction = async () => {
-    await fetch(`https://fintrack-api-kwxq.onrender.com/api/transactions/${selected.id}`, {
+    await fetch(`${API_BASE}/api/transactions/${selected.id}`, {
       method: "DELETE",
     });
 

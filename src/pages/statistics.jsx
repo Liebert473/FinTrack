@@ -6,6 +6,7 @@ import {
 } from 'recharts';
 
 function Statistics() {
+    const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
 
     //Charts
@@ -44,7 +45,7 @@ function Statistics() {
         parms.append('view', chType)
 
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/statistic?${parms}`
+            `${API_BASE}/api/statistic?${parms}`
         ).then((x) => x.json());
 
         setChData(rs)
@@ -61,7 +62,7 @@ function Statistics() {
 
     const fetchCategories = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories`
+            `${API_BASE}/api/categories`
         ).then((x) => x.json());
 
         setCategories(rs)
@@ -69,14 +70,14 @@ function Statistics() {
 
     const fetchAccounts = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/accounts`
+            `${API_BASE}/api/accounts`
         ).then((x) => x.json());
 
         setAccounts(rs)
     };
 
     const MotifyTransaction = async () => {
-        await fetch(`https://fintrack-api-kwxq.onrender.com/api/transactions/${selected.id}`,
+        await fetch(`${API_BASE}/api/transactions/${selected.id}`,
             {
                 method: "PUT",
                 headers: {
@@ -90,7 +91,7 @@ function Statistics() {
     }
 
     const DeleteTransaction = async () => {
-        await fetch(`https://fintrack-api-kwxq.onrender.com/api/transactions/${selected.id}`, {
+        await fetch(`${API_BASE}/api/transactions/${selected.id}`, {
             method: "DELETE",
         });
 
@@ -109,7 +110,7 @@ function Statistics() {
 
     const fetchTransactions = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/transactions/filter?endDate=${endDate}&days=${days}&type=${viewType}`
+            `${API_BASE}/api/transactions/filter?endDate=${endDate}&days=${days}&type=${viewType}`
         ).then((x) => x.json())
 
         setLoading(false);

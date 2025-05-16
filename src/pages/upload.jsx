@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 
 function Upload() {
+    const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const { from } = useParams();
     const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ function Upload() {
 
     const fetchCategories = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/categories`
+            `${API_BASE}/api/categories`
         ).then((x) => x.json());
 
         setCategories(rs)
@@ -27,7 +28,7 @@ function Upload() {
 
     const fetchAccounts = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/accounts`
+            `${API_BASE}/api/accounts`
         ).then((x) => x.json());
 
         setAccounts(rs)
@@ -44,7 +45,7 @@ function Upload() {
     }
 
     const handleSubmit = async (e) => {
-        fetch("https://fintrack-api-kwxq.onrender.com/api/transactions", {
+        fetch("${API_BASE}/api/transactions", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

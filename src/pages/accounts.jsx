@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 function Accounts() {
+    const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
     const [add, setAdd] = useState(false);
     const [openAccount, setOpenAccount] = useState(false);
@@ -27,7 +28,7 @@ function Accounts() {
 
     const fetchAccounts = async () => {
         const rs = await fetch(
-            `https://fintrack-api-kwxq.onrender.com/api/accounts`
+            `${API_BASE}/api/accounts`
         ).then((x) => x.json());
 
         setAccounts(rs)
@@ -38,7 +39,7 @@ function Accounts() {
     }, []);
 
     const MotifyAccount = async () => {
-        await fetch(`https://fintrack-api-kwxq.onrender.com/api/accounts/${moti_accountId}`, {
+        await fetch(`${API_BASE}/api/accounts/${moti_accountId}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +55,7 @@ function Accounts() {
 
     const addAccount = () => {
         if (accountName != '') {
-            fetch("https://fintrack-api-kwxq.onrender.com/api/accounts", {
+            fetch("${API_BASE}/api/accounts", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -69,7 +70,7 @@ function Accounts() {
     }
 
     const DeleteAccount = async () => {
-        await fetch(`https://fintrack-api-kwxq.onrender.com/api/accounts/${moti_accountId}`, {
+        await fetch(`${API_BASE}/api/accounts/${moti_accountId}`, {
             method: "DELETE"
         })
         setOpenDelete(false);
