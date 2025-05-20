@@ -22,8 +22,8 @@ function Accounts() {
     const OpenAccount = (id) => {
         setMoti_accountId(id);
         setOpenAccount(true);
-        setMoti_accountName(accounts.find(account => account.id === id).name);
-        setMoti_accountBalance(accounts.find(account => account.id === id).initialBalance);
+        setMoti_accountName(accounts.find(account => account._id === id).name);
+        setMoti_accountBalance(accounts.find(account => account._id === id).initialBalance);
     }
 
     const fetchAccounts = async () => {
@@ -90,7 +90,7 @@ function Accounts() {
                 <div className={s.body} style={add ? { display: "none" } : {}}>
                     <div className={s.accounts}>
                         {accounts.map((account) => (
-                            <div className={s.account} key={account.id} onClick={() => OpenAccount(account.id)}>
+                            <div className={s.account} key={account._id} onClick={() => OpenAccount(account._id)}>
                                 <div className={s["a-top"]}>
                                     <p className={s.t}>{account.name}</p>
                                     <span>Total balance</span>
@@ -180,15 +180,15 @@ function Accounts() {
                                 </div>
                                 <div className={s.viewValue}>
                                     <span>Total Balance :</span>
-                                    <p>$ {accounts.find(account => account.id === moti_accountId).totalBalance}</p>
+                                    <p>$ {accounts.find(account => account._id === moti_accountId).totalBalance}</p>
                                 </div>
                                 <div className={`${s.viewValue} ${s.green}`}>
                                     <span>Total Incomes :</span>
-                                    <p>$ {accounts.find(account => account.id === moti_accountId).incomes}</p>
+                                    <p>$ {accounts.find(account => account._id === moti_accountId).incomes}</p>
                                 </div>
                                 <div className={`${s.viewValue} ${s.red}`}>
                                     <span>Total Expenses :</span>
-                                    <p>$ {accounts.find(account => account.id === moti_accountId).expenses}</p>
+                                    <p>$ {accounts.find(account => account._id === moti_accountId).expenses}</p>
                                 </div>
                                 {accounts.length > 1 &&
                                     <div className={s.option} onClick={() => setOpenDelete(true)}>

@@ -49,7 +49,7 @@ function Category() {
     }
 
     const OpenCategory = (id) => {
-        setCategoryName(categories.find((x) => x.id === id).name)
+        setCategoryName(categories.find((x) => x._id === id).name)
         setOpenCategory(true)
         setSelectedCategory(id)
     }
@@ -106,7 +106,7 @@ function Category() {
 
                     <div className={s["cat-container"]}>
                         {categories.map((x) => (
-                            <div className={s.cat} key={x.id} onClick={() => OpenCategory(x.id)}>
+                            <div className={s.cat} key={x._id} onClick={() => OpenCategory(x._id)}>
                                 <p>{x.name}</p>
                             </div>
                         ))}
