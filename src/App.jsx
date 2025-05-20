@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./pages/home";
 import NotFound from "./pages/notfound";
 import Statistics from "./pages/statistics";
@@ -11,7 +11,7 @@ import './css/bootstrap-icons.css'
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="*" element={<NotFound />} />
 
@@ -28,7 +28,7 @@ function App() {
 
         <Route path="/transactions" element={<Transactions />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
