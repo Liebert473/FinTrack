@@ -43,6 +43,7 @@ function Home() {
   }
 
   useEffect(() => {
+    if (!viewAcc) return
     fetchSpending()
   }, [viewAcc])
 
