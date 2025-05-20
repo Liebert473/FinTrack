@@ -61,7 +61,6 @@ function Accounts() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    id: crypto.randomUUID(),
                     name: accountName,
                     initialBalance: Number(initBalance)
                 })

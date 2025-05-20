@@ -63,7 +63,6 @@ function Category() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    id: crypto.randomUUID(),
                     name: addName
                 }),
             }
