@@ -61,7 +61,7 @@ function Transactions() {
             prams.append('account', account)
         }
         if (Fcategory != '') {
-            prams.append('category', Fcategory.id)
+            prams.append('category', Fcategory._id)
         }
         if (fromDate != "") {
             prams.append('fromDate', fromDate)
@@ -84,7 +84,7 @@ function Transactions() {
     };
 
     const MotifyTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected.id}`,
+        await fetch(`${API_BASE}/api/transactions/${selected._id}`,
             {
                 method: "PUT",
                 headers: {
@@ -98,7 +98,7 @@ function Transactions() {
     }
 
     const DeleteTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected.id}`, {
+        await fetch(`${API_BASE}/api/transactions/${selected._id}`, {
             method: "DELETE",
         });
 
@@ -106,7 +106,7 @@ function Transactions() {
         setOpenDelete(false);
 
         fetchTransactions();
-        setTransactions(prev => prev.filter(x => x.id != selected.id))
+        setTransactions(prev => prev.filter(x => x._id != selected._id))
     };
 
     const ResetFilter = async () => {
@@ -187,7 +187,7 @@ function Transactions() {
                                 <div className={s.select}>
                                     <select name="account" id="account" value={selected.account} onChange={e => setSelected(prev => ({ ...prev, account: e.target.value }))}>
                                         {accounts.map((account) => (
-                                            <option key={account.id} value={account.id}>{account.name}</option>
+                                            <option key={account._id} value={account._id}>{account.name}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -222,7 +222,7 @@ function Transactions() {
                                     >
                                         {categories.map((category) => (
                                             <option
-                                                key={category.id}
+                                                key={category._id}
                                                 value={JSON.stringify(category)}
                                             >
                                                 {category.name}
@@ -284,7 +284,7 @@ function Transactions() {
                                     <select name="account" value={account} onChange={e => setAccount(e.target.value)}>
                                         <option value="">All</option>
                                         {accounts.map((account) => (
-                                            <option key={account.id} value={account.id}>{account.name}</option>
+                                            <option key={account._id} value={account._id}>{account.name}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -333,7 +333,7 @@ function Transactions() {
                                         <option value="">All</option>
                                         {categories.map((category) => (
                                             <option
-                                                key={category.id}
+                                                key={category._id}
                                                 value={JSON.stringify(category)}
                                             >
                                                 {category.name}

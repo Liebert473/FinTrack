@@ -32,7 +32,7 @@ function Upload() {
         ).then((x) => x.json());
 
         setAccounts(rs)
-        setAccount(rs[0].id)
+        setAccount(rs[0]._id)
     };
 
     useEffect(() => {
@@ -51,7 +51,6 @@ function Upload() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: crypto.randomUUID(),
                 type: type,
                 amount: Number(amount),
                 account: account,
@@ -83,7 +82,7 @@ function Upload() {
                             <div className={styles.select}>
                                 <select name="account" id="account" value={account} onChange={(e) => setAccount(e.target.value)} required>
                                     {accounts.map((account) => (
-                                        <option key={account.id} value={account.id}>{account.name}</option>
+                                        <option key={account._id} value={account._id}>{account.name}</option>
                                     ))}
                                 </select>
                             </div>
@@ -107,7 +106,7 @@ function Upload() {
                             <div className={styles.select}>
                                 <select name="category" id="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
                                     {categories.map((category) => (
-                                        <option key={category.id} value={JSON.stringify(category)}>{category.name}</option>
+                                        <option key={category._id} value={JSON.stringify(category)}>{category.name}</option>
                                     ))}
                                 </select>
                             </div>

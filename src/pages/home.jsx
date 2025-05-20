@@ -48,7 +48,7 @@ function Home() {
 
   useEffect(() => {
     if (Array.isArray(accounts) && accounts.length > 0) {
-      setViewAcc(accounts[0].id);
+      setViewAcc(accounts[0]._id);
     }
   }, [accounts]);
 
@@ -92,7 +92,7 @@ function Home() {
     setTransactions((prev) => {
       const merged = [...prev, ...rs.transactions];
       const unique = Array.from(
-        new Map(merged.map((tx) => [tx.id, tx])).values()
+        new Map(merged.map((tx) => [tx._id, tx])).values()
       );
 
       if (rs.uniqueDates.length > 0) {
@@ -107,7 +107,7 @@ function Home() {
   };
 
   const MotifyTransaction = async () => {
-    await fetch(`${API_BASE}/api/transactions/${selected.id}`,
+    await fetch(`${API_BASE}/api/transactions/${selected._id}`,
       {
         method: "PUT",
         headers: {
@@ -121,7 +121,7 @@ function Home() {
   }
 
   const DeleteTransaction = async () => {
-    await fetch(`${API_BASE}/api/transactions/${selected.id}`, {
+    await fetch(`${API_BASE}/api/transactions/${selected._id}`, {
       method: "DELETE",
     });
 
@@ -129,7 +129,7 @@ function Home() {
     setOpenDelete(false);
 
     fetchTransactions();
-    setTransactions(prev => prev.filter(x => x.id != selected.id))
+    setTransactions(prev => prev.filter(x => x._id != selected._id))
   };
 
   useEffect(() => {
@@ -173,7 +173,7 @@ function Home() {
             <div className={s.accChoice}>
               <select value={viewAcc} onChange={e => setViewAcc(e.target.value)}>
                 {accounts.map((account) => (
-                  <option key={account.id} value={account.id}>{account.name}</option>
+                  <option key={account._id} value={account._id}>{account.name}</option>
                 ))}
               </select>
             </div>
@@ -291,7 +291,7 @@ function Home() {
                 <div className={s.select}>
                   <select name="account" id="account" value={selected.account} onChange={e => setSelected(prev => ({ ...prev, account: e.target.value }))}>
                     {accounts.map((account) => (
-                      <option key={account.id} value={account.id}>{account.name}</option>
+                      <option key={account._id} value={account._id}>{account.name}</option>
                     ))}
                   </select>
                 </div>
@@ -326,7 +326,7 @@ function Home() {
                   >
                     {categories.map((category) => (
                       <option
-                        key={category.id}
+                        key={category._id}
                         value={JSON.stringify(category)}
                       >
                         {category.name}

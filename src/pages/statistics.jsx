@@ -77,7 +77,7 @@ function Statistics() {
     };
 
     const MotifyTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected.id}`,
+        await fetch(`${API_BASE}/api/transactions/${selected._id}`,
             {
                 method: "PUT",
                 headers: {
@@ -91,7 +91,7 @@ function Statistics() {
     }
 
     const DeleteTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected.id}`, {
+        await fetch(`${API_BASE}/api/transactions/${selected._id}`, {
             method: "DELETE",
         });
 
@@ -99,7 +99,7 @@ function Statistics() {
         setOpenDelete(false);
 
         fetchTransactions();
-        setTransactions(prev => prev.filter(x => x.id != selected.id))
+        setTransactions(prev => prev.filter(x => x._id != selected._id))
     };
 
     function addDate(date, days) {
@@ -118,7 +118,7 @@ function Statistics() {
         setTransactions((prev) => {
             const merged = [...prev, ...rs.transactions];
             const unique = Array.from(
-                new Map(merged.map((tx) => [tx.id, tx])).values()
+                new Map(merged.map((tx) => [tx._id, tx])).values()
             );
 
             if (rs.uniqueDates.length > 0) {
@@ -289,7 +289,7 @@ function Statistics() {
                                 <div className={s.select}>
                                     <select name="account" id="account" value={selected.account} onChange={e => setSelected(prev => ({ ...prev, account: e.target.value }))}>
                                         {accounts.map((account) => (
-                                            <option key={account.id} value={account.id}>{account.name}</option>
+                                            <option key={account._id} value={account._id}>{account.name}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -324,7 +324,7 @@ function Statistics() {
                                     >
                                         {categories.map((category) => (
                                             <option
-                                                key={category.id}
+                                                key={category._id}
                                                 value={JSON.stringify(category)}
                                             >
                                                 {category.name}
