@@ -82,7 +82,7 @@ function Register() {
 
                 <div className={s["or"]}>
                     <span>Or</span>
-                    <p>Already have an account? <a href="">Login</a></p>
+                    <p>Already have an account? <a onClick={() => navigate('/login')}>Login</a></p>
                 </div>
             </div>
         </div>

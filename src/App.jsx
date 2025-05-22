@@ -11,7 +11,7 @@ import Transactions from "./pages/transactions";
 import Register from "./pages/register";
 import Login from "./pages/login";
 
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider, useAuth } from "./AuthContext";
 
 import './css/bootstrap-icons.css'
 
