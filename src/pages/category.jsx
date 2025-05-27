@@ -169,13 +169,15 @@ function Category() {
                                 <input type="text" name="name" required value={categoryName} onChange={(e) => setCategoryName(e.target.value)}></input>
                             </div>
 
-                            <div className={s.option} onClick={() => setOpenDelete(true)}>
-                                <div>
-                                    <i className={`${s.bi} bi-trash-fill`}></i>
-                                    <p>Delete Category</p>
+                            {categories.length > 1 &&
+                                <div className={s.option} onClick={() => setOpenDelete(true)}>
+                                    <div>
+                                        <i className={`${s.bi} bi-trash-fill`}></i>
+                                        <p>Delete Category</p>
+                                    </div>
+                                    <i className={`${s.bi} bi-chevron-right`}></i>
                                 </div>
-                                <i className={`${s.bi} bi-chevron-right`}></i>
-                            </div>
+                            }
 
                             <button type="submit" className={s.btn1}>Save</button>
                         </form>

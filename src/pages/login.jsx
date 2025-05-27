@@ -27,7 +27,7 @@ function Login() {
             if (!res.ok) {
                 throw new Error(data.error || 'Something went wrong');
             }
-            notify(res.message, 'success')
+            notify(data.message, 'success')
             login(data.token);
         } catch (err) {
             notify(err.message, 'error')
