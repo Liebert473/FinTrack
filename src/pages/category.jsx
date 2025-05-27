@@ -22,19 +22,26 @@ function Category() {
 
     const [addName, setAddName] = useState("")
 
-    const MotifyCategory = async () => {
-        await fetchAuth(
-            `${API_BASE}/api/categories/${selectedCategory}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: categoryName
-                }),
-            }
-        )
+    const MotifyCategory = async (e) => {
+        e.preventDefault();
+        try {
+            const rs = await fetchAuth(
+                `${API_BASE}/api/categories/${selectedCategory}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: categoryName
+                    }),
+                }
+            )
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
 
         setOpenCategory(false)
         fetchCategories()
