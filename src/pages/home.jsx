@@ -258,7 +258,7 @@ function Home() {
                 {!loading && transactions.length === 0 && (
                   <p className={s.empty}>No transactions found</p>
                 )}
-                {more && <p className={s.seeMore} onClick={fetchTransactions}>See More</p>}
+                {more && !loading && <p className={s.seeMore} onClick={fetchTransactions}>See More</p>}
               </div>
             </div>
           </div>

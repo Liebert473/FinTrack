@@ -254,7 +254,7 @@ function Statistics() {
                             {!loading && transactions.length === 0 && (
                                 <p className={s.empty}>No transactions found</p>
                             )}
-                            {more && (
+                            {more && !loading && (
                                 <p className={s.seeMore} onClick={fetchTransactions}>
                                     See More
                                 </p>
