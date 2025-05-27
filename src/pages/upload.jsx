@@ -2,8 +2,13 @@ import styles from '../css/upload.module.css'
 import '../css/bootstrap-icons.css'
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useFetchAuth } from '../components/fetchAuth';
+import { useNotify } from '../NotificationContext';
 
 function Upload() {
+    const fetchAuth = useFetchAuth()
+    const { notify } = useNotify()
+
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const { from } = useParams();
     const navigate = useNavigate();
@@ -18,18 +23,18 @@ function Upload() {
     const [category, setCategory] = useState("");
 
     const fetchCategories = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/categories`
-        ).then((x) => x.json());
+        )
 
         setCategories(rs)
         setCategory(JSON.stringify(rs[0]))
     };
 
     const fetchAccounts = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/accounts`
-        ).then((x) => x.json());
+        )
 
         setAccounts(rs)
         setAccount(rs[0]._id)
@@ -45,19 +50,26 @@ function Upload() {
     }
 
     const handleSubmit = async (e) => {
-        fetch(`${API_BASE}/api/transactions`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                type: type,
-                amount: Number(amount),
-                account: account,
-                date: date,
-                category: JSON.parse(category)
+        e.preventDefault();
+        try {
+            const rs = await fetchAuth(`${API_BASE}/api/transactions`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: type,
+                    amount: Number(amount),
+                    account: account,
+                    date: date,
+                    category: JSON.parse(category)
+                })
             })
-        })
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
     };
 
     return (

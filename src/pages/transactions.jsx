@@ -1,11 +1,13 @@
 import s from "../css/transactions.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, Fragment } from "react";
-import { set } from "date-fns";
+import { useFetchAuth } from "../components/fetchAuth";
 
 function Transactions() {
     const navigate = useNavigate();
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
+
+    const fetchAuth = useFetchAuth()
 
     //Filter
     const [openFilter, setOpenFilter] = useState(false)
@@ -31,17 +33,17 @@ function Transactions() {
     const [accounts, setAccounts] = useState([])
 
     const fetchCategories = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/categories`
-        ).then((x) => x.json());
+        )
 
         setCategories(rs)
     };
 
     const fetchAccounts = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/accounts`
-        ).then((x) => x.json());
+        )
 
         setAccounts(rs)
     };
@@ -70,9 +72,9 @@ function Transactions() {
             prams.append('toDate', toDate)
         }
 
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/transactions/filter?${prams}`
-        ).then((x) => x.json());
+        )
 
         setLoading(false)
 
@@ -84,7 +86,7 @@ function Transactions() {
     };
 
     const MotifyTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected._id}`,
+        await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`,
             {
                 method: "PUT",
                 headers: {
@@ -98,7 +100,7 @@ function Transactions() {
     }
 
     const DeleteTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected._id}`, {
+        await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`, {
             method: "DELETE",
         });
 

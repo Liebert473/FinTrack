@@ -158,7 +158,8 @@ a {
     margin-top: 40px;
 }
 
-.signup-page {
+.signup-page,
+.login-page {
     background-color: white;
     display: flex;
     flex-direction: column;

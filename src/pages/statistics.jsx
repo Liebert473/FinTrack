@@ -4,10 +4,13 @@ import { useState, useEffect, Fragment } from "react";
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
+import { useFetchAuth } from "../components/fetchAuth";
 
 function Statistics() {
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
+
+    const fetchAuth = useFetchAuth()
 
     //Charts
     const [viewType, setViewType] = useState("expense")
@@ -44,9 +47,9 @@ function Statistics() {
         parms.append('type', viewType)
         parms.append('view', chType)
 
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/statistic?${parms}`
-        ).then((x) => x.json());
+        )
 
         setChData(rs)
     }
@@ -61,23 +64,23 @@ function Statistics() {
     }, [chType])
 
     const fetchCategories = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/categories`
-        ).then((x) => x.json());
+        )
 
         setCategories(rs)
     };
 
     const fetchAccounts = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/accounts`
-        ).then((x) => x.json());
+        )
 
         setAccounts(rs)
     };
 
     const MotifyTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected._id}`,
+        await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`,
             {
                 method: "PUT",
                 headers: {
@@ -91,7 +94,7 @@ function Statistics() {
     }
 
     const DeleteTransaction = async () => {
-        await fetch(`${API_BASE}/api/transactions/${selected._id}`, {
+        await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`, {
             method: "DELETE",
         });
 
@@ -109,9 +112,9 @@ function Statistics() {
     }
 
     const fetchTransactions = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/transactions/filter?endDate=${endDate}&days=${days}&type=${viewType}`
-        ).then((x) => x.json())
+        )
 
         setLoading(false);
 

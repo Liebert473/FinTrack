@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import s from "../css/accounts.module.css";
 import { useNavigate } from "react-router-dom";
+import { useFetchAuth } from "../components/fetchAuth";
+import { useNotify } from "../NotificationContext";
 
 
 function Accounts() {
+    const fetchAuth = useFetchAuth()
+    const { notify } = useNotify()
+
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
     const [add, setAdd] = useState(false);
@@ -27,9 +32,9 @@ function Accounts() {
     }
 
     const fetchAccounts = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/accounts`
-        ).then((x) => x.json());
+        )
 
         setAccounts(rs)
     };
@@ -39,7 +44,7 @@ function Accounts() {
     }, []);
 
     const MotifyAccount = async () => {
-        await fetch(`${API_BASE}/api/accounts/${moti_accountId}`, {
+        await fetchAuth(`${API_BASE}/api/accounts/${moti_accountId}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -53,25 +58,41 @@ function Accounts() {
         fetchAccounts()
     }
 
-    const addAccount = () => {
+    const addAccount = async (e) => {
+        e.preventDefault();
         if (accountName != '') {
-            fetch(`${API_BASE}/api/accounts`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    name: accountName,
-                    initialBalance: Number(initBalance)
+            try {
+                const rs = await fetchAuth(`${API_BASE}/api/accounts`, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: accountName,
+                        initialBalance: Number(initBalance)
+                    })
                 })
-            })
+
+                notify(rs.message, 'success')
+                fetchAccounts()
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 
     const DeleteAccount = async () => {
-        await fetch(`${API_BASE}/api/accounts/${moti_accountId}`, {
-            method: "DELETE"
-        })
+        try {
+
+            const rs = await fetchAuth(`${API_BASE}/api/accounts/${moti_accountId}`, {
+                method: "DELETE"
+            })
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
+
         setOpenDelete(false);
         setOpenAccount(false);
         fetchAccounts()
@@ -142,7 +163,7 @@ function Accounts() {
 
                 {add &&
                     <div className={s["add-account"]}>
-                        <form action="" className={s["input-form"]} onSubmit={() => addAccount()}>
+                        <form action="" className={s["input-form"]} onSubmit={addAccount}>
                             <div className={s.input}>
                                 <label htmlFor="name">Account name</label>
                                 <input type="text" name="name" required value={accountName} onChange={(e) => setAccountName(e.target.value)}></input>

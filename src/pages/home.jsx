@@ -5,10 +5,16 @@ import s from "../css/home.module.css";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
+import { useNotify } from "../NotificationContext";
+
+import { useFetchAuth } from "../components/fetchAuth";
 
 function Home() {
   const API_BASE = 'https://fintrack-api-easr.onrender.com'
   const navigate = useNavigate();
+
+  const fetchAuth = useFetchAuth()
+  const { notify } = useNotify()
 
   //Chart
   const [chData, setChData] = useState([])
@@ -35,9 +41,9 @@ function Home() {
   const [spending, setSpending] = useState(0)
 
   const fetchSpending = async () => {
-    const rs = await fetch(
+    const rs = await fetchAuth(
       `${API_BASE}/api/totalSum/${new Date().toISOString().slice(0, 7)}?account=${viewAcc}&&type=expense`
-    ).then((x) => x.json());
+    )
 
     setSpending(rs)
   }
@@ -54,25 +60,25 @@ function Home() {
   }, [accounts]);
 
   const fetchChartData = async () => {
-    const rs = await fetch(
+    const rs = await fetchAuth(
       `${API_BASE}/api/statistic?view=daily&&type=expense`
-    ).then((x) => x.json());
+    )
 
     setChData(rs)
   }
 
   const fetchCategories = async () => {
-    const rs = await fetch(
+    const rs = await fetchAuth(
       `${API_BASE}/api/categories`
-    ).then((x) => x.json());
+    )
 
     setCategories(rs)
   };
 
   const fetchAccounts = async () => {
-    const rs = await fetch(
+    const rs = await fetchAuth(
       `${API_BASE}/api/accounts`
-    ).then((x) => x.json());
+    )
 
     setAccounts(rs)
   };
@@ -84,9 +90,9 @@ function Home() {
   }
 
   const fetchTransactions = async () => {
-    const rs = await fetch(
+    const rs = await fetchAuth(
       `${API_BASE}/api/transactions/filter?endDate=${endDate}&days=${days}`
-    ).then((x) => x.json());
+    )
 
     setLoading(false)
 
@@ -107,30 +113,43 @@ function Home() {
     });
   };
 
-  const MotifyTransaction = async () => {
-    await fetch(`${API_BASE}/api/transactions/${selected._id}`,
-      {
-        method: "PUT",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(selected)
-      }
-    )
+  const MotifyTransaction = async (e) => {
+    e.preventDefault();
 
-    fetchTransactions()
+    try {
+      const rs = await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`,
+        {
+          method: "PUT",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(selected)
+        }
+      )
+
+      fetchTransactions()
+      setSelected(null);
+
+      notify(rs.message, 'success')
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const DeleteTransaction = async () => {
-    await fetch(`${API_BASE}/api/transactions/${selected._id}`, {
-      method: "DELETE",
-    });
+    try {
+      const rs = await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`, {
+        method: "DELETE",
+      });
+      notify(rs.message, 'success')
+    } catch (err) {
+      console.log(err)
+    }
 
     setSelected(null);
     setOpenDelete(false);
 
     fetchTransactions();
-    setTransactions(prev => prev.filter(x => x._id != selected._id))
   };
 
   useEffect(() => {

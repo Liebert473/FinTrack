@@ -2,10 +2,15 @@ import s from '../css/category.module.css'
 import '../css/bootstrap-icons.css'
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useFetchAuth } from '../components/fetchAuth';
+import { useNotify } from '../NotificationContext';
 
 function Category() {
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
+
+    const fetchAuth = useFetchAuth()
+    const { notify } = useNotify()
 
     const [categories, setCategories] = useState([])
     const [openCategory, setOpenCategory] = useState(false)
@@ -18,7 +23,7 @@ function Category() {
     const [addName, setAddName] = useState("")
 
     const MotifyCategory = async () => {
-        await fetch(
+        await fetchAuth(
             `${API_BASE}/api/categories/${selectedCategory}`,
             {
                 method: "PUT",
@@ -36,12 +41,18 @@ function Category() {
     }
 
     const DeleteCategory = async () => {
-        await fetch(
-            `${API_BASE}/api/categories/${selectedCategory}`,
-            {
-                method: "DELETE"
-            }
-        )
+        try {
+            const rs = await fetchAuth(
+                `${API_BASE}/api/categories/${selectedCategory}`,
+                {
+                    method: "DELETE"
+                }
+            )
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
 
         setOpenDelete(false)
         setOpenCategory(false)
@@ -54,19 +65,26 @@ function Category() {
         setSelectedCategory(id)
     }
 
-    const AddCategory = async () => {
-        await fetch(
-            `${API_BASE}/api/categories`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name: addName
-                }),
-            }
-        )
+    const AddCategory = async (e) => {
+        e.preventDefault();
+        try {
+            const rs = await fetchAuth(
+                `${API_BASE}/api/categories`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: addName
+                    }),
+                }
+            )
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
 
         setAddName("")
         setOpenAdd(false)
@@ -74,9 +92,9 @@ function Category() {
     }
 
     const fetchCategories = async () => {
-        const rs = await fetch(
+        const rs = await fetchAuth(
             `${API_BASE}/api/categories?search=${search}`
-        ).then((x) => x.json());
+        )
 
         setCategories(rs)
     };

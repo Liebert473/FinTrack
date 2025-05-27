@@ -2,6 +2,8 @@ import s from '../css/register_login.module.css'
 import '../css/bootstrap-icons.css'
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
+import { useNotify } from '../NotificationContext';
+import { useAuth } from '../AuthContext';
 
 function Register() {
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
@@ -14,17 +16,52 @@ function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const { notify } = useNotify()
+    const { login } = useAuth()
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Add validation, send request, etc.
-        console.log({ email, name, username, password, confirmPassword });
+
+        if (password !== confirmPassword) {
+            notify("Passwords do not match. Please re-enter the same password.", "error");
+            return;
+        }
+
+        try {
+            const res = await fetch(`${API_BASE}/api/auth/register`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email,
+                    name,
+                    username,
+                    password,
+                })
+            })
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || 'Something went wrong');
+            }
+
+            notify('Registration success.', 'success')
+
+            const token = data.token
+
+            login(token)
+
+        } catch (err) {
+            notify(err.message)
+        }
     };
 
     return (
         <div className={s.screen}>
             <div className={s["signup-page"]}>
                 <div className={s["top"]}>
-                    <span className={`${s.bi} bi-arrow-left-short`}></span>
                     <div className={s["headding"]}>
                         <h1>Welcome!</h1>
                         <p>Enter your credentials to sign up</p>
@@ -64,6 +101,7 @@ function Register() {
                                 name="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                minLength={8}
                                 required
                             />
                             <input
@@ -72,6 +110,7 @@ function Register() {
                                 name="confirmPassword"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                minLength={8}
                                 required
                             />
                         </div>
