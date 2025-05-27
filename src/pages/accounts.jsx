@@ -43,7 +43,8 @@ function Accounts() {
         fetchAccounts();
     }, []);
 
-    const MotifyAccount = async () => {
+    const MotifyAccount = async (e) => {
+        e.preventDefault();
         try {
             const rs = await fetchAuth(`${API_BASE}/api/accounts/${moti_accountId}`, {
                 method: "PUT",
@@ -88,7 +89,8 @@ function Accounts() {
         }
     }
 
-    const DeleteAccount = async () => {
+    const DeleteAccount = async (e) => {
+        e.preventDefault();
         try {
 
             const rs = await fetchAuth(`${API_BASE}/api/accounts/${moti_accountId}`, {
