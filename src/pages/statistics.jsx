@@ -5,12 +5,14 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { useFetchAuth } from "../components/fetchAuth";
+import { useNotify } from "../NotificationContext";
 
 function Statistics() {
     const API_BASE = 'https://fintrack-api-easr.onrender.com'
     const navigate = useNavigate();
 
     const fetchAuth = useFetchAuth()
+    const { notify } = useNotify()
 
     //Charts
     const [viewType, setViewType] = useState("expense")
@@ -79,24 +81,39 @@ function Statistics() {
         setAccounts(rs)
     };
 
-    const MotifyTransaction = async () => {
-        await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`,
-            {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(selected)
-            }
-        )
+    const MotifyTransaction = async (e) => {
+        e.preventDefault();
+        try {
+            const rs = await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(selected)
+                }
+            )
 
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
+
+        setSelected(null)
         fetchTransactions()
     }
 
-    const DeleteTransaction = async () => {
-        await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`, {
-            method: "DELETE",
-        });
+    const DeleteTransaction = async (e) => {
+        e.preventDefault();
+        try {
+            const rs = await fetchAuth(`${API_BASE}/api/transactions/${selected._id}`, {
+                method: "DELETE",
+            });
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
 
         setSelected(null);
         setOpenDelete(false);

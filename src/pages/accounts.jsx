@@ -44,16 +44,23 @@ function Accounts() {
     }, []);
 
     const MotifyAccount = async () => {
-        await fetchAuth(`${API_BASE}/api/accounts/${moti_accountId}`, {
-            method: "PUT",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: moti_accountName,
-                initialBalance: Number(moti_accountBalance)
+        try {
+            const rs = await fetchAuth(`${API_BASE}/api/accounts/${moti_accountId}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: moti_accountName,
+                    initialBalance: Number(moti_accountBalance)
+                })
             })
-        })
+
+            notify(rs.message, 'success')
+        } catch (err) {
+            console.log(err)
+        }
+
         setOpenAccount(false);
         fetchAccounts()
     }
