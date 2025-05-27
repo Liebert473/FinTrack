@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+:root {
+    --primary: #0055FF;
+    --secondary: rgba(0, 85, 255, 0.1);
+    --gradient: linear-gradient(-45deg, var(--primary), rgba(0, 85, 255, 0.5));
+    --gray: rgba(0, 0, 0, 0.7);
+    --size1: 20px;
+    --size2: 16px;
+    --size3: 12px;
+    --space: 20px;
+    --box1: 50px;
+}
+
+/* Elements */
+
+a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn1 {
+    display: flex;
+    width: 150px;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--size2);
+    border-radius: 20px;
+    background-color: var(--primary);
+    color: white;
+    border: 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.screen {
+    margin: 0 auto;
+    max-width: 670px;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Login */
+
+.page {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    padding: var(--space);
+    padding-top: 25px;
+}
+
+.top .bi {
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.body {
+    background-color: white;
+    margin: 0 var(--space);
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 80px;
+    border-radius: 40px;
+    gap: 20px;
+}
+
+.option {
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: var(--secondary);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option div {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+}
+
+.option .bi {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.option div p {
+    color: var(--gray);
+    font-size: var(--size2);
+    font-weight: 600;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.profile p {
+    color: white;
+    font-size: var(--size1);
+    font-weight: 600;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary);
+    z-index: -1;
+    height: 300px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}

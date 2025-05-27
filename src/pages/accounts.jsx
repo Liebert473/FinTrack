@@ -163,7 +163,7 @@ function Accounts() {
                             <i className={`${s.bi} bi-briefcase-fill`}></i>
                             <span style={{ fontWeight: 600 }}>Accounts</span>
                         </li>
-                        <li>
+                        <li onClick={() => navigate("/profile")}>
                             <i className={`${s.bi} bi-person`}></i>
                             <span>Profile</span>
                         </li>

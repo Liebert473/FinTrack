@@ -9,6 +9,9 @@ import Category from "./pages/category";
 import Transactions from "./pages/transactions";
 import Register from "./pages/register";
 import Login from "./pages/login";
+import Profile from "./pages/profile/profile";
+import Settings from "./pages/profile/settings";
+import Personal_Info from "./pages/profile/personal_info";
 
 import { AuthProvider } from "./AuthContext";
 import { NotificationProvider } from "./NotificationContext";
@@ -34,6 +37,9 @@ function App() {
             <Route path="/accounts" element={<ProtectRoute><Accounts /></ProtectRoute>} />
             <Route path="/category" element={<ProtectRoute><Category /></ProtectRoute>} />
             <Route path="/transactions" element={<ProtectRoute><Transactions /></ProtectRoute>} />
+
+            <Route path="/profile" element={<ProtectRoute><Profile /></ProtectRoute>} />
+            <Route path="/profile/personal_information" element={<ProtectRoute><Personal_Info /></ProtectRoute>} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
