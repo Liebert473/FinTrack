@@ -25,7 +25,7 @@ export function useFetchAuth() {
                     notify(data.error || "Unauthorized", "error");
                     logout();
                 }
-                throw new Error(data.error || "Request failed");
+                throw new Error(data.message || "Request failed");
             }
 
             return data;

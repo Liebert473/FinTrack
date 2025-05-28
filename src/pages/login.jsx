@@ -1,13 +1,16 @@
 import s from '../css/register_login.module.css';
 import '../css/bootstrap-icons.css';
-import { useState } from "react";
+import { useState, useEffect, use } from "react";
 import { useAuth } from '../AuthContext';
 import { useNotify } from '../NotificationContext';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const API_BASE = 'https://fintrack-api-easr.onrender.com';
     const { login } = useAuth();
     const { notify } = useNotify()
+
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -33,6 +36,14 @@ function Login() {
             notify(err.message, 'error')
         }
     };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/home');
+        }
+
+    }, [])
 
     return (
         <div className={s.screen}>

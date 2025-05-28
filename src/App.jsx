@@ -1,5 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
+import Test from "./pages/test";
 import Home from "./pages/home";
 import NotFound from "./pages/notfound";
 import Statistics from "./pages/statistics";
@@ -37,6 +38,7 @@ function App() {
             <Route path="/accounts" element={<ProtectRoute><Accounts /></ProtectRoute>} />
             <Route path="/category" element={<ProtectRoute><Category /></ProtectRoute>} />
             <Route path="/transactions" element={<ProtectRoute><Transactions /></ProtectRoute>} />
+            <Route path="/test" element={<ProtectRoute><Test /></ProtectRoute>} />
 
             <Route path="/profile" element={<ProtectRoute><Profile /></ProtectRoute>} />
             <Route path="/profile/personal_information" element={<ProtectRoute><Personal_Info /></ProtectRoute>} />

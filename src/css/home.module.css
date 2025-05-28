@@ -79,6 +79,7 @@ a {
     display: flex;
     gap: 15px;
     align-items: center;
+    cursor: pointer;
 }
 
 .profile img {

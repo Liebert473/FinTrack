@@ -1,6 +1,5 @@
 import { useEffect, useState, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
-import profile from "../assets/profile.jpg";
 import s from "../css/home.module.css";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
@@ -39,6 +38,20 @@ function Home() {
   //Spending
   const [viewAcc, setViewAcc] = useState('')
   const [spending, setSpending] = useState(0)
+
+  //Profile
+  const [profile, setProfile] = useState('/src/assets/profile.jpg')
+  const [profileName, setProfileName] = useState('User')
+
+  async function fetchProfile() {
+    try {
+      const rs = await fetchAuth(`${API_BASE}/api/user/userProfile`)
+      setProfile(rs.profileImage ? rs.profileImage : profile);
+      setProfileName(rs.name.split(" ")[0]);
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const fetchSpending = async () => {
     const rs = await fetchAuth(
@@ -153,6 +166,7 @@ function Home() {
   };
 
   useEffect(() => {
+    fetchProfile();
     fetchTransactions();
     fetchCategories()
     fetchAccounts()
@@ -179,9 +193,9 @@ function Home() {
         <div className={s.cover}></div>
 
         <div className={s.top}>
-          <div className={s.profile}>
+          <div className={s.profile} onClick={() => navigate('/profile')}>
             <img src={profile} alt=""></img>
-            <p>Hi Liebert!</p>
+            <p>Hi {profileName}!</p>
           </div>
           <i className={s.bi + " bi-bell"}></i>
         </div>
