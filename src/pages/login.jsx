@@ -81,7 +81,7 @@ function Login() {
 
                 <div className={s["or"]}>
                     <span>Or</span>
-                    <p>Don't have an account? <a href="/register">Register</a></p>
+                    <p>Don't have an account? <a onClick={() => navigate('/register')}>Register</a></p>
                 </div>
             </div>
         </div>

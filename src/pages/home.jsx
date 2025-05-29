@@ -221,7 +221,7 @@ function Home() {
             <div className={s.section}>
               <div className={s["set-top"]}>
                 <p>Anayltics</p>
-                <a href="" onClick={() => navigate('/statistics')}>Show more</a>
+                <a onClick={() => navigate('/statistics')}>Show more</a>
               </div>
               <div className={s.chart}>
                 <div style={{ width: '100%', height: 300 }}>
