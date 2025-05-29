@@ -13,6 +13,7 @@ import Login from "./pages/login";
 import Profile from "./pages/profile/profile";
 import Settings from "./pages/profile/settings";
 import Personal_Info from "./pages/profile/personal_info";
+import Password from "./pages/profile/password";
 
 import { AuthProvider } from "./AuthContext";
 import { NotificationProvider } from "./NotificationContext";
@@ -42,6 +43,8 @@ function App() {
 
             <Route path="/profile" element={<ProtectRoute><Profile /></ProtectRoute>} />
             <Route path="/profile/personal_information" element={<ProtectRoute><Personal_Info /></ProtectRoute>} />
+            <Route path="/profile/settings" element={<ProtectRoute><Settings /></ProtectRoute>} />
+            <Route path="/profile/settings/change_password" element={<ProtectRoute><Password /></ProtectRoute>} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>
