@@ -42,14 +42,6 @@ function Settings() {
 
             <div className={s.body}>
 
-                <div className={s.option}>
-                    <div>
-                        <i className={`${s.bi} bi-bell`}></i>
-                        <p>Notifications</p>
-                    </div>
-                    <i className={`${s.bi} bi-chevron-right`}></i>
-                </div>
-
                 <div className={s.option} onClick={() => navigate('/profile/settings/change_password')}>
                     <div>
                         <i className={`${s.bi} bi-shield-lock`}></i>

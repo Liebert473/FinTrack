@@ -1,5 +1,5 @@
 import { useNotify } from "../NotificationContext";
-import s from "../css/notifications.module.css"
+import s from "../css/notification.module.css"
 
 export function Notification() {
     const { messages, remove } = useNotify()

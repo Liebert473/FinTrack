@@ -197,7 +197,7 @@ function Home() {
             <img src={profile} alt=""></img>
             <p>Hi {profileName}!</p>
           </div>
-          <i className={s.bi + " bi-bell"}></i>
+          <i className={s.bi + " bi-bell"} onClick={() => navigate('/notifications')}></i>
         </div>
 
         <div className={s.body}>

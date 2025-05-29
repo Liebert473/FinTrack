@@ -15,9 +15,12 @@ function Password() {
 
     const fetchAuth = useFetchAuth()
 
-    async function UpdatePassword() {
+    async function UpdatePassword(e) {
+        e.preventDefault();
+
         if (newPassword != rePassword) {
             notify('Re-enter the same password.', 'error')
+            return
         }
 
         try {
@@ -32,6 +35,7 @@ function Password() {
             notify(rs.message, 'success')
             setNewPassword('')
             setCurrentPassword('')
+            setRePassword('')
         } catch (err) {
             console.log(err)
         }

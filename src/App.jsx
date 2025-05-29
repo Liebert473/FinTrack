@@ -14,6 +14,7 @@ import Profile from "./pages/profile/profile";
 import Settings from "./pages/profile/settings";
 import Personal_Info from "./pages/profile/personal_info";
 import Password from "./pages/profile/password";
+import Notifications from "./pages/notifications";
 
 import { AuthProvider } from "./AuthContext";
 import { NotificationProvider } from "./NotificationContext";
@@ -40,6 +41,7 @@ function App() {
             <Route path="/category" element={<ProtectRoute><Category /></ProtectRoute>} />
             <Route path="/transactions" element={<ProtectRoute><Transactions /></ProtectRoute>} />
             <Route path="/test" element={<ProtectRoute><Test /></ProtectRoute>} />
+            <Route path="/notifications" element={<ProtectRoute><Notifications /></ProtectRoute>} />
 
             <Route path="/profile" element={<ProtectRoute><Profile /></ProtectRoute>} />
             <Route path="/profile/personal_information" element={<ProtectRoute><Personal_Info /></ProtectRoute>} />
